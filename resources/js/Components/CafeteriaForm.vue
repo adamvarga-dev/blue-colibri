@@ -1,5 +1,4 @@
 <script setup>
-import InputError from "@/Components/InputError.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import MonthsInput from "@/Components/MonthsInput.vue";
 import { useForm } from "@inertiajs/vue3";
@@ -7,9 +6,9 @@ import { useCafeteriaStore } from "@/stores/cafeteria";
 
 const cafeteriaStore = useCafeteriaStore();
 const form = useForm({
-    firstColumn: Array(12).fill(0),
-    secondColumn: Array(12).fill(0),
-    thirdColumn: Array(12).fill(0),
+    first: Array(12).fill(0),
+    second: Array(12).fill(0),
+    third: Array(12).fill(0),
     total: 0,
 });
 
@@ -20,9 +19,9 @@ const submit = () => {
 };
 
 const updateFormData = () => {
-    form.firstColumn = cafeteriaStore.firstColumn;
-    form.secondColumn = cafeteriaStore.secondColumn;
-    form.thirdColumn = cafeteriaStore.thirdColumn;
+    form.first = cafeteriaStore.firstColumn;
+    form.second = cafeteriaStore.secondColumn;
+    form.third = cafeteriaStore.thirdColumn;
     form.total = cafeteriaStore.total;
 };
 </script>
@@ -37,7 +36,6 @@ const updateFormData = () => {
                         :column="1"
                         @updateFormData="updateFormData"
                     ></MonthsInput>
-                    <InputError class="mt-2" :message="form.errors.first" />
                 </div>
                 <div>
                     <h3 class="text-white text-center my-4">Vendéglátás</h3>
@@ -45,7 +43,6 @@ const updateFormData = () => {
                         :column="2"
                         @updateFormData="updateFormData"
                     ></MonthsInput>
-                    <InputError class="mt-2" :message="form.errors.second" />
                 </div>
                 <div>
                     <h3 class="text-white text-center my-4">Szabadidő</h3>
@@ -53,7 +50,6 @@ const updateFormData = () => {
                         :column="3"
                         @updateFormData="updateFormData"
                     ></MonthsInput>
-                    <InputError class="mt-2" :message="form.errors.third" />
                 </div>
                 <div class="grid grid-cols-2 text-white text-xl font-bold mb-5">
                     <h3 class="">Összesen:</h3>
@@ -67,6 +63,16 @@ const updateFormData = () => {
             >
                 <span class="font-medium">
                     {{ $page.props.flash.message }}
+                </span>
+            </div>
+            <div
+                v-if="$page.props.flash.error"
+                v-for="error of $page.props.flash.error"
+                class="p-4 my-4 text-center text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800"
+                role="alert"
+            >
+                <span class="font-medium">
+                    {{ error[0] }}
                 </span>
             </div>
             <div class="flex items-center justify-center my-4">
