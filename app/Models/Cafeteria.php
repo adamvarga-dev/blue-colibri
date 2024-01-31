@@ -9,7 +9,7 @@ class Cafeteria extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['first', 'second', 'third', 'total'];
+    protected $fillable = ['first', 'second', 'third', 'first_sub', 'second_sub', 'third_sub', 'total'];
 
     protected $casts = [
         'first' => 'json',

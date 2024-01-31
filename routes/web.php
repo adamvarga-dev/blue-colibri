@@ -20,6 +20,8 @@ use Inertia\Inertia;
 Route::get('/', function () {
     return Inertia::render('Welcome');
 })->name('home');
+
+Route::get('/getCafeteria', [CafeteriaController::class, 'getCafeteria'])->name('cafeteria.getCafeteria');
 Route::post('/', [CafeteriaController::class, 'store'])->name('cafeteria.store');
 
 Route::get('/dashboard', function () {

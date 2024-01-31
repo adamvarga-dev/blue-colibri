@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
+import Papa from "papaparse";
 
 export const useCafeteriaStore = defineStore("cafeteria", {
     state: () => ({
@@ -23,17 +24,17 @@ export const useCafeteriaStore = defineStore("cafeteria", {
     actions: {
         setFirstColumnValues(months) {
             this.firstColumn = months.map(function (month) {
-                return month.value;
+                return month;
             });
         },
         setSecondColumnValues(months) {
             this.secondColumn = months.map(function (month) {
-                return month.value;
+                return month;
             });
         },
         setThirdColumnValues(months) {
             this.thirdColumn = months.map(function (month) {
-                return month.value;
+                return month;
             });
         },
         setFirstSubTotal(subTotal) {
@@ -48,6 +49,29 @@ export const useCafeteriaStore = defineStore("cafeteria", {
         setTotal() {
             this.total =
                 this.firstSubTotal + this.secondSubTotal + this.thirdSubTotal;
+        },
+        exportToCSV() {
+            const csvData = Papa.unparse({
+                fields: ["Szálláshely", "Vendéglátás", "Szabadidő"],
+                data: [
+                    [
+                        this.getFirstColumn,
+                        this.getSecondColumn,
+                        this.getThirdColumn,
+                    ],
+                    [
+                        "Szálláshely: " + this.getFirstSubTotal + " Ft",
+                        "Vendéglátás: " + this.getSecondSubTotal + " Ft",
+                        "Szabadidő: " + this.getThirdSubTotal + " Ft",
+                    ],
+                    ["Összesen: " + this.getTotal + " Ft"],
+                ],
+            });
+            const blob = new Blob([csvData], { type: "text/csv" });
+            const link = document.createElement("a");
+            link.href = window.URL.createObjectURL(blob);
+            link.download = "cafeteria.csv";
+            link.click();
         },
     },
 });

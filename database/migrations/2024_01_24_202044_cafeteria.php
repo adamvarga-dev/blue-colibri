@@ -16,6 +16,9 @@ return new class extends Migration
             $table->json('first');
             $table->json('second');
             $table->json('third');
+            $table->integer('first_sub');
+            $table->integer('second_sub');
+            $table->integer('third_sub');
             $table->integer('total');
             $table->timestamps();
         });
