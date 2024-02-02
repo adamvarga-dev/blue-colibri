@@ -4,11 +4,7 @@ Cafeteria adminisztráció - Próbafeladat
 
 ### Futtatás:
 
-composer install <br>
-npm install <br>
-php artisan migrate <br>
-npm run dev <br>
-
-#### Másik terminal ablakban:
-
-php artisan serve
+./vendor/bin/sail composer install <br>
+./vendor/bin/sail npm install <br>
+./vendor/bin/sail artisan migrate <br>
+./vendor/bin/sail npm run dev <br>
