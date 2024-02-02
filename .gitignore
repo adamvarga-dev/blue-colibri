@@ -8,6 +8,9 @@
 !/vendor/bin
 /vendor/bin/*
 !/vendor/bin/sail
+!/vendor/laravel
+/vendor/laravel/*
+!/vendor/laravel/sail
 .env.backup
 .env.production
 .phpunit.result.cache
